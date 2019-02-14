@@ -22,6 +22,8 @@ sudo docker volume create letsencrypt_challenges
 #create volume for nginx
 sudo docker volume create nginxdata
 sudo docker volume create nginxwww
+#create volume for mysql
+sudo docker volume create dbdata
 
 # generate the certificates
 sudo docker run --rm \
