@@ -16,13 +16,14 @@ services:
       - 'REVERSE_PROXY_BUFFERS='
       - 'REVERSE_PROXY_BUFFERS_SIZE='
 
-      - 'SERVER1SERVER_NAME=jira.localhost'
+      - 'SERVER1SERVER_NAME=jira.kamenev.name'
       - 'SERVER1REVERSE_PROXY_LOCATION1=/jira'
       - 'SERVER1REVERSE_PROXY_PASS1=http://jira:8080'
 
 
     ports:
       - '80:80'
+      - '443:443'
     volumes:
       - nginxdata:/home/nginx
       - nginxwww:/var/lib/nginx/html
