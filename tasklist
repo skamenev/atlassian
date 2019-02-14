@@ -22,6 +22,10 @@ sudo docker run --rm \
     -e "LETSENCRYPT_EMAIL=sergey@kamenev.name" \
     -e "LETSENCRYPT_DOMAIN1=jira.kamenev.name" \
     blacklabelops/letsencrypt install
+ 
+ #test the domain certificates
+ #copy /letsencrypt/docker-compose.yml to /opt/letsencrypt/docker-compose.yml
+ 
 
 
 #create volume for nginx
