@@ -16,9 +16,9 @@ services:
       - 'HTTPS_ENABLED=true'
       - 'HTTP_ENABLED=true'
       - 'LETSENCRYPT_CERTIFICATES=true'
-      - 'CERTIFICATE_FILE=/etc/letsencrypt/live/${JIRA_DOMAIN_NAME_PARENT}/fullchain.pem'
-      - 'CERTIFICATE_KEY=/etc/letsencrypt/live/${JIRA_DOMAIN_NAME_PARENT}/privkey.pem'
-      - 'CERTIFICATE_TRUSTED=/etc/letsencrypt/live/${JIRA_DOMAIN_NAME_PARENT}/fullchain.pem'
+      - 'CERTIFICATE_FILE=/etc/letsencrypt/live/jira.kamenev.name/fullchain.pem'
+      - 'CERTIFICATE_KEY=/etc/letsencrypt/live/jira.kamenev.name/privkey.pem'
+      - 'CERTIFICATE_TRUSTED=/etc/letsencrypt/live/jira.kamenev.name/fullchain.pem'
       - 'PROXY_APPLICATION=jira'
     ports:
       - '80:80'
