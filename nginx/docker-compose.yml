@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   nginx:
@@ -9,16 +9,13 @@ services:
     networks:
       - atlassiannet
     environment:
-      #- 'SERVER_NAME=_'
-      #- 'REVERSE_PROXY_LOCATION=/'
-      #- 'REVERSE_PROXY_PASS=http://www.heise.de'
       - 'REVERSE_PROXY_BUFFERING='
       - 'REVERSE_PROXY_BUFFERS='
       - 'REVERSE_PROXY_BUFFERS_SIZE='
 
-      - 'SERVER1SERVER_NAME=jira.kamenev.name'
-      - 'SERVER1REVERSE_PROXY_LOCATION1=/jira'
-      - 'SERVER1REVERSE_PROXY_PASS1=http://jira:8080'
+      - 'SERVER_NAME=jira.kamenev.name'
+      - 'REVERSE_PROXY_LOCATION1=/jira'
+      - 'REVERSE_PROXY_PASS1=http://jira:8080'
 
 
     ports:
