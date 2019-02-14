@@ -6,16 +6,29 @@ sudo usermod -a -G docker ec2-user
 #install docker-compose
 sudo curl -L https://github.com/docker/compose/releases/download/1.24.0-rc1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
-
-
 #create network for jira
 sudo docker network create --driver bridge network-atlassian || true
 sudo docker network inspect network-atlassian
+# create the volume to store certficates
+sudo docker volume create letsencrypt_certificates
+# create the volume to store certficate challenges
+sudo docker volume create letsencrypt_challenges
+
+# generate the certificates
+sudo docker run --rm \
+    -p 80:80 \
+    -p 443:443 \
+    -v letsencrypt_certificates:/etc/letsencrypt \
+    -e "LETSENCRYPT_EMAIL=sergey@kamenev.name" \
+    -e "LETSENCRYPT_DOMAIN1=jira.kamenev.name" \
+    blacklabelops/letsencrypt install
+
+
 #create volume for nginx
 sudo docker volume create nginxdata
 sudo docker volume inspect nginxdata
 sudo docker volume create nginxwww
 sudo docker volume inspect nginxwww
-#copy opt/nginx/docker-compose.yml to /opt/nginx/docker-compose.yml
+#copy /nginx/docker-compose.yml to /opt/nginx/docker-compose.yml
 sudo docker-compose up -d
  
