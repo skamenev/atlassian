@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  nginx:
+    image: blacklabelops/nginx
+    container_name: nginx_test
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - letsencrypt_certificates:/etc/letsencrypt
+      - letsencrypt_challenges:/var/www/letsencrypt
+    environment:
+      - 'NGINX_REDIRECT_PORT80=true'
+      - 'SERVER1PROXY_APPLICATION=test1'
+      - 'SERVER1SERVER_NAME=jira.kamenev.name'
+      - 'SERVER1REVERSE_PROXY_LOCATION1=/'
+      - 'SERVER1REVERSE_PROXY_PASS1=http://test1'
+      - 'SERVER1HTTPS_ENABLED=true'
+      - 'SERVER1HTTP_ENABLED=true'
+      - 'SERVER1LETSENCRYPT_CERTIFICATES=true'
+      - 'SERVER1CERTIFICATE_FILE=/etc/letsencrypt/live/jira.kamenev.name/fullchain.pem'
+      - 'SERVER1CERTIFICATE_KEY=/etc/letsencrypt/live/jira.kamenev.name/privkey.pem'
+      - 'SERVER1CERTIFICATE_TRUSTED=/etc/letsencrypt/live/jira.kamenev.name/fullchain.pem'
+  test1:
+    image: nginx
+    container_name: test1_container
+    hostname: test1
+    restart: unless-stopped
+    volumes:
+      - ./test1:/usr/share/nginx/html
+volumes:
+  letsencrypt_certificates:
+    external: true
+  letsencrypt_challenges:
+    external: true
