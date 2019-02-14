@@ -24,6 +24,8 @@ sudo docker volume create nginxdata
 sudo docker volume create nginxwww
 #create volume for mysql
 sudo docker volume create dbdata
+#create volume for jira
+sudo docker volume create jiradata
 
 # generate the certificates
 sudo docker run --rm \
