@@ -1,0 +1,21 @@
+#install docker
+sudo yum update -y
+sudo yum install -y docker
+sudo service docker starchmod +x /usr/local/bin/docker-composet
+sudo usermod -a -G docker ec2-user
+#install docker-compose
+sudo curl -L https://github.com/docker/compose/releases/download/1.24.0-rc1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+
+#create network for jira
+sudo docker network create --driver bridge network-atlassian || true
+sudo docker network inspect network-atlassian
+#create volume for nginx
+sudo docker volume create nginxdata
+sudo docker volume inspect nginxdata
+sudo docker volume create nginxwww
+sudo docker volume inspect nginxwww
+#copy opt/nginx/docker-compose.yml to /opt/nginx/docker-compose.yml
+sudo docker-compose up -d
+ 
