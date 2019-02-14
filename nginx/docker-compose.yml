@@ -12,12 +12,22 @@ services:
       - 'SERVER_NAME=jira.kamenev.name'
       - 'REVERSE_PROXY_LOCATION1=/jira'
       - 'REVERSE_PROXY_PASS1=http://jira:8080'
+      - 'NGINX_REDIRECT_PORT80=true'
+      - 'HTTPS_ENABLED=true'
+      - 'HTTP_ENABLED=true'
+      - 'LETSENCRYPT_CERTIFICATES=true'
+      - 'CERTIFICATE_FILE=/etc/letsencrypt/live/${JIRA_DOMAIN_NAME_PARENT}/fullchain.pem'
+      - 'CERTIFICATE_KEY=/etc/letsencrypt/live/${JIRA_DOMAIN_NAME_PARENT}/privkey.pem'
+      - 'CERTIFICATE_TRUSTED=/etc/letsencrypt/live/${JIRA_DOMAIN_NAME_PARENT}/fullchain.pem'
+      - 'PROXY_APPLICATION=jira'
     ports:
       - '80:80'
       - '443:443'
     volumes:
       - nginxdata:/home/nginx
       - nginxwww:/var/lib/nginx/html
+      - letsencrypt_certificates:/etc/letsencrypt
+      - letsencrypt_challenges:/var/www/letsencrypt
       #- /var/nginx/nginx.conf:/etc/nginx/nginx.conf
       #- /var/nginx/conf.d/site.conf:/etc/nginx/conf.d/site.conf
 
@@ -25,6 +35,10 @@ volumes:
   nginxdata:
     external: true
   nginxwww:
+    external: true
+  letsencrypt_certificates:
+    external: true
+  letsencrypt_challenges:
     external: true
 
 networks:
